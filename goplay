@@ -1,0 +1,36 @@
+#!/bin/bash
+
+tmpdir=$(mktemp -d)
+cp tpl/default.go $tmpdir
+cd $tmpdir
+vim -u NONE --noplugin default.go
+go run default.go | less -X
+while true; do
+    cat default.go
+    echo
+    echo "your file is here:"
+    echo $tmpdir/default.go
+    echo "[r]un again [e]dit [q]uit"
+    read -s -n 1 whatdo
+    case $whatdo in
+        r|R) 
+            # echo "would go run" 
+            printf '\033[2J'
+            go run default.go | less -X 
+            ;;
+        e|E) 
+            # echo "would give 'em vim"  
+            printf '\033[2J'
+            vim -u NONE --noplugin default.go 
+            go run default.go | less -X
+            ;;
+        q|Q) 
+            echo "later."
+            break 
+            ;;
+        *) 
+            echo "Hey, don't be upset ʕ◔ϖ◔ʔ"; 
+            break 
+            ;;
+    esac
+done
