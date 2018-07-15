@@ -1,9 +1,11 @@
 #!/bin/bash
 
 tmpdir=$(mktemp -d)
-cp tpl/default.go $tmpdir
 cd $tmpdir
+printf "package main;func main(){\nfmt.Println(\"letsgo\");}" > default.go
+goimports -w default.go
 vim -u NONE --noplugin default.go
+goimports -w default.go
 go run default.go | less -X
 while true; do
     cat default.go
@@ -22,6 +24,7 @@ while true; do
             # echo "would give 'em vim"  
             printf '\033[2J'
             vim -u NONE --noplugin default.go 
+            goimports -w default.go
             go run default.go | less -X
             ;;
         q|Q) 
