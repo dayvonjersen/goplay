@@ -12,7 +12,7 @@ while true; do
     echo
     echo "your file is here:"
     echo $tmpdir/default.go
-    echo "[r]un again [e]dit [q]uit"
+    echo "[r]un again [e]dit [s]hare [q]uit"
     read -s -n 1 whatdo
     case $whatdo in
         r|R) 
@@ -26,6 +26,10 @@ while true; do
             vim -u NONE --noplugin default.go 
             goimports -w default.go
             go run default.go | less -X
+            ;;
+        s|S)
+            echo "https://play.golang.org/p/"`curl -s -X POST https://play.golang.org/share --data-binary '@default.go'`
+            break
             ;;
         q|Q) 
             echo "later."

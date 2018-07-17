@@ -60,4 +60,3 @@ DRY variables
 colors (maybe)
 option -t more minified go templates to choose from
     - *very* excited to have an excuse to write minified go :D
-option [S] to upload to play.golang.org
